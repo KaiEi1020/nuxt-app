@@ -1,0 +1,30 @@
+<template>
+  <div>
+    <!-- <NuxtWelcome />
+    <span>{{runtimeConfig.public.apiBase}}</span> -->
+    <span>{{data?.result}}</span>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { getActiveHead } from 'unhead'
+const runtimeConfig = useRuntimeConfig();
+const { data } = await useAsyncData<any>(() => $fetch('http://rap2api.taobao.org/app/mock/120100/screen/test'));
+console.log('result', data.value.result);
+const head = useHead({
+  titleTemplate: '%s - useHead example',
+  title: 'asdg',
+  bodyAttrs: {
+    class: 'test'
+  },
+  script: data.value.result
+})
+
+const a = getActiveHead();
+console.log('a', a,);
+
+a?.push({ title: 'Hello World' })
+
+// const { data } = await useAsyncData(() => $fetch('http://test.dsf.com/mock/4803/api/cockpit/user/currentUser/getRole'));
+
+</script>
